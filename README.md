@@ -2,8 +2,8 @@
 
 CourseSchedule is a small local command-line utility that grows in focused stages.
 
-Current stage: 1
-Latest focus: Create the first package scaffold
+Current stage: 2
+Latest focus: Add core data models
 
 ## Goals
 
