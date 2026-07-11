@@ -23,6 +23,13 @@ class Note:
     created_at: str = field(default_factory=utc_now)
     updated_at: str = field(default_factory=utc_now)
 
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "Note":
+        return cls(**data)
+
 
 @dataclass
 class Task:
@@ -36,6 +43,13 @@ class Task:
     created_at: str = field(default_factory=utc_now)
     updated_at: str = field(default_factory=utc_now)
 
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "Task":
+        return cls(**data)
+
 
 @dataclass
 class Snippet:
@@ -48,10 +62,32 @@ class Snippet:
     created_at: str = field(default_factory=utc_now)
     updated_at: str = field(default_factory=utc_now)
 
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "Snippet":
+        return cls(**data)
+
 
 @dataclass
 class ProjectState:
     notes: list[Note] = field(default_factory=list)
     tasks: list[Task] = field(default_factory=list)
     snippets: list[Snippet] = field(default_factory=list)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "notes": [note.to_dict() for note in self.notes],
+            "tasks": [task.to_dict() for task in self.tasks],
+            "snippets": [snippet.to_dict() for snippet in self.snippets],
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any]) -> "ProjectState":
+        return cls(
+            notes=[Note.from_dict(item) for item in data.get("notes", [])],
+            tasks=[Task.from_dict(item) for item in data.get("tasks", [])],
+            snippets=[Snippet.from_dict(item) for item in data.get("snippets", [])],
+        )
 

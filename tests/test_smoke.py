@@ -20,6 +20,13 @@ class ProjectSmokeTests(unittest.TestCase):
         self.assertEqual(state.notes[0].title, "Plan")
         self.assertEqual(state.tasks[0].status, "todo")
 
+    def test_state_round_trip(self) -> None:
+        state = ProjectState(notes=[Note(id="n1", title="One")], tasks=[Task(id="t1", title="Two")])
+        restored = ProjectState.from_dict(state.to_dict())
+
+        self.assertEqual(restored.notes[0].title, "One")
+        self.assertEqual(restored.tasks[0].title, "Two")
+
 
 if __name__ == "__main__":
     unittest.main()
