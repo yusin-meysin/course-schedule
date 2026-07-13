@@ -5,10 +5,12 @@ import json
 from pathlib import Path
 
 from .models import Note, ProjectState, Snippet, Task
+from .storage import load_state, save_state
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="course_schedule")
+    parser.add_argument("--data", default="data/state.json")
     subparsers = parser.add_subparsers(dest="command")
     return parser
 
