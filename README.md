@@ -2,8 +2,8 @@
 
 CourseSchedule is a small local command-line utility that grows in focused stages.
 
-Current stage: 4
-Latest focus: Add JSON storage
+Current stage: 5
+Latest focus: Add demo records
 
 ## Goals
 
