@@ -21,6 +21,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--data", default="data/state.json")
     subparsers = parser.add_subparsers(dest="command")
     subparsers.add_parser("demo")
+    subparsers.add_parser("summary")
+    subparsers.add_parser("notes")
+    subparsers.add_parser("tasks")
+    subparsers.add_parser("snippets")
     return parser
 
 
@@ -30,6 +34,25 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "demo":
         state = demo_state()
         print(json.dumps(state.to_dict() if hasattr(state, "to_dict") else {"notes": len(state.notes)}, ensure_ascii=False, sort_keys=True))
+        return 0
+    if args.command == "summary":
+        state = load_state(args.data) if args.data else demo_state()
+        print(f"notes={len(state.notes)} tasks={len(state.tasks)} snippets={len(state.snippets)}")
+        return 0
+    if args.command == "notes":
+        state = load_state(args.data) if args.data else demo_state()
+        for note in state.notes:
+            print(f"{note.id} {note.title}")
+        return 0
+    if args.command == "tasks":
+        state = load_state(args.data) if args.data else demo_state()
+        for task in state.tasks:
+            print(f"{task.id} {task.status} {task.title}")
+        return 0
+    if args.command == "snippets":
+        state = load_state(args.data) if args.data else demo_state()
+        for snippet in state.snippets:
+            print(f"{snippet.id} {snippet.language} {snippet.title}")
         return 0
     parser.print_help()
     return 0
