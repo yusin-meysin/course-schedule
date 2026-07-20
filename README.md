@@ -2,8 +2,8 @@
 
 CourseSchedule is a small local command-line utility that grows in focused stages.
 
-Current stage: 7
-Latest focus: Add short ID generation
+Current stage: 8
+Latest focus: Add validation helpers
 
 ## Goals
 
