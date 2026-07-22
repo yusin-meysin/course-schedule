@@ -6,6 +6,10 @@ from pathlib import Path
 
 from .models import Note, ProjectState, Snippet, Task
 from .storage import load_state, save_state
+from .services import (
+    create_note,
+    list_notes,
+)
 
 
 
@@ -25,6 +29,11 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("notes")
     subparsers.add_parser("tasks")
     subparsers.add_parser("snippets")
+    note_add = subparsers.add_parser("note-add")
+    note_add.add_argument("--title", required=True)
+    note_add.add_argument("--body", default="")
+    note_add.add_argument("--tag", action="append", default=[])
+    subparsers.add_parser("note-list")
     return parser
 
 
@@ -53,6 +62,17 @@ def main(argv: list[str] | None = None) -> int:
         state = load_state(args.data) if args.data else demo_state()
         for snippet in state.snippets:
             print(f"{snippet.id} {snippet.language} {snippet.title}")
+        return 0
+    if args.command == "note-add":
+        state = load_state(args.data)
+        note = create_note(state, args.title, args.body, args.tag)
+        save_state(args.data, state)
+        print(note.id)
+        return 0
+    if args.command == "note-list":
+        state = load_state(args.data)
+        for note in list_notes(state):
+            print(f"{note.id} {note.title}")
         return 0
     parser.print_help()
     return 0
