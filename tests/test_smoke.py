@@ -13,6 +13,8 @@ from course_schedule.validation import normalize_tags, require_text, validate_ta
 from course_schedule.services import (
     create_note,
     list_notes,
+    get_note,
+    update_note,
 )
 
 
@@ -69,6 +71,16 @@ class ProjectSmokeTests(unittest.TestCase):
         self.assertEqual(note.title, "New note")
         self.assertEqual(note.tags, ["work"])
         self.assertEqual(list_notes(state), [note])
+
+    def test_get_and_update_note(self) -> None:
+        state = ProjectState()
+        note = create_note(state, "Old", "Body")
+
+        update_note(state, note.id, title="New", tags=["A", "a"])
+
+        self.assertEqual(get_note(state, note.id).title, "New")
+        with self.assertRaises(ValueError):
+            get_note(state, "missing")
 
 
 if __name__ == "__main__":
