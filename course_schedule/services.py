@@ -44,3 +44,16 @@ def update_note(
     note.updated_at = utc_now()
     return note
 
+def archive_note(state: ProjectState, note_id: str) -> Note:
+    note = get_note(state, note_id)
+    note.archived = True
+    note.updated_at = utc_now()
+    return note
+
+
+def restore_note(state: ProjectState, note_id: str) -> Note:
+    note = get_note(state, note_id)
+    note.archived = False
+    note.updated_at = utc_now()
+    return note
+

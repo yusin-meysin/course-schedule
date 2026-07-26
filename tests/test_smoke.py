@@ -15,6 +15,8 @@ from course_schedule.services import (
     list_notes,
     get_note,
     update_note,
+    archive_note,
+    restore_note,
 )
 
 
@@ -81,6 +83,15 @@ class ProjectSmokeTests(unittest.TestCase):
         self.assertEqual(get_note(state, note.id).title, "New")
         with self.assertRaises(ValueError):
             get_note(state, "missing")
+
+    def test_archive_and_restore_note(self) -> None:
+        state = ProjectState()
+        note = create_note(state, "Title", "Body")
+
+        archive_note(state, note.id)
+        self.assertEqual(list_notes(state), [])
+        restore_note(state, note.id)
+        self.assertEqual(list_notes(state), [note])
 
 
 if __name__ == "__main__":

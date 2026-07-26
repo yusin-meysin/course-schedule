@@ -11,6 +11,8 @@ from .services import (
     list_notes,
     get_note,
     update_note,
+    archive_note,
+    restore_note,
 )
 
 
@@ -43,6 +45,10 @@ def build_parser() -> argparse.ArgumentParser:
     note_update.add_argument("--title")
     note_update.add_argument("--body")
     note_update.add_argument("--tag", action="append")
+    note_archive = subparsers.add_parser("note-archive")
+    note_archive.add_argument("note_id")
+    note_restore = subparsers.add_parser("note-restore")
+    note_restore.add_argument("note_id")
     return parser
 
 
@@ -93,6 +99,18 @@ def main(argv: list[str] | None = None) -> int:
         note = update_note(state, args.note_id, args.title, args.body, args.tag)
         save_state(args.data, state)
         print(note.id)
+        return 0
+    if args.command == "note-archive":
+        state = load_state(args.data)
+        archive_note(state, args.note_id)
+        save_state(args.data, state)
+        print(args.note_id)
+        return 0
+    if args.command == "note-restore":
+        state = load_state(args.data)
+        restore_note(state, args.note_id)
+        save_state(args.data, state)
+        print(args.note_id)
         return 0
     parser.print_help()
     return 0
