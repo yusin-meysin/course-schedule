@@ -57,3 +57,29 @@ def restore_note(state: ProjectState, note_id: str) -> Note:
     note.updated_at = utc_now()
     return note
 
+def create_task(
+    state: ProjectState,
+    title: str,
+    priority: str = "normal",
+    owner: str = "",
+    due_date: str = "",
+    tags: list[str] | None = None,
+) -> Task:
+    now = utc_now()
+    task = Task(
+        id=generate_short_id("task", {task.id for task in state.tasks}),
+        title=require_text(title, "title"),
+        priority=validate_task_priority(priority),
+        owner=owner,
+        due_date=due_date,
+        tags=normalize_tags(tags),
+        created_at=now,
+        updated_at=now,
+    )
+    state.tasks.append(task)
+    return task
+
+
+def list_tasks(state: ProjectState) -> list[Task]:
+    return list(state.tasks)
+

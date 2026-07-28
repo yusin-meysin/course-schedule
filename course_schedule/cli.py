@@ -13,6 +13,8 @@ from .services import (
     update_note,
     archive_note,
     restore_note,
+    create_task,
+    list_tasks,
 )
 
 
@@ -49,6 +51,13 @@ def build_parser() -> argparse.ArgumentParser:
     note_archive.add_argument("note_id")
     note_restore = subparsers.add_parser("note-restore")
     note_restore.add_argument("note_id")
+    task_add = subparsers.add_parser("task-add")
+    task_add.add_argument("--title", required=True)
+    task_add.add_argument("--priority", default="normal")
+    task_add.add_argument("--owner", default="")
+    task_add.add_argument("--due-date", default="")
+    task_add.add_argument("--tag", action="append", default=[])
+    subparsers.add_parser("task-list")
     return parser
 
 
@@ -111,6 +120,18 @@ def main(argv: list[str] | None = None) -> int:
         restore_note(state, args.note_id)
         save_state(args.data, state)
         print(args.note_id)
+        return 0
+    if args.command == "task-add":
+        state = load_state(args.data)
+        task = create_task(state, args.title, args.priority, args.owner, args.due_date, args.tag)
+        save_state(args.data, state)
+        print(task.id)
+        return 0
+    if args.command == "task-list":
+        state = load_state(args.data)
+        tasks = filter_tasks(state, args.status, args.owner, args.priority, args.tag, args.due_from, args.due_to) if "filter_tasks" in globals() else list_tasks(state)
+        for task in tasks:
+            print(f"{task.id} {task.status} {task.title}")
         return 0
     parser.print_help()
     return 0

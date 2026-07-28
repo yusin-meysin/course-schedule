@@ -17,6 +17,8 @@ from course_schedule.services import (
     update_note,
     archive_note,
     restore_note,
+    create_task,
+    list_tasks,
 )
 
 
@@ -92,6 +94,15 @@ class ProjectSmokeTests(unittest.TestCase):
         self.assertEqual(list_notes(state), [])
         restore_note(state, note.id)
         self.assertEqual(list_notes(state), [note])
+
+    def test_create_and_list_tasks(self) -> None:
+        state = ProjectState()
+        task = create_task(state, " Ship ", priority="high", owner="me", tags=["Launch"])
+
+        self.assertEqual(task.title, "Ship")
+        self.assertEqual(task.priority, "high")
+        self.assertEqual(task.tags, ["launch"])
+        self.assertEqual(list_tasks(state), [task])
 
 
 if __name__ == "__main__":
