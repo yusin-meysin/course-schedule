@@ -15,6 +15,8 @@ from .services import (
     restore_note,
     create_task,
     list_tasks,
+    get_task,
+    update_task_status,
 )
 
 
@@ -58,6 +60,9 @@ def build_parser() -> argparse.ArgumentParser:
     task_add.add_argument("--due-date", default="")
     task_add.add_argument("--tag", action="append", default=[])
     subparsers.add_parser("task-list")
+    task_status = subparsers.add_parser("task-status")
+    task_status.add_argument("task_id")
+    task_status.add_argument("status")
     return parser
 
 
@@ -132,6 +137,12 @@ def main(argv: list[str] | None = None) -> int:
         tasks = filter_tasks(state, args.status, args.owner, args.priority, args.tag, args.due_from, args.due_to) if "filter_tasks" in globals() else list_tasks(state)
         for task in tasks:
             print(f"{task.id} {task.status} {task.title}")
+        return 0
+    if args.command == "task-status":
+        state = load_state(args.data)
+        task = update_task_status(state, args.task_id, args.status)
+        save_state(args.data, state)
+        print(f"{task.id} {task.status}")
         return 0
     parser.print_help()
     return 0

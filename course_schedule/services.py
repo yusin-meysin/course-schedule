@@ -83,3 +83,16 @@ def create_task(
 def list_tasks(state: ProjectState) -> list[Task]:
     return list(state.tasks)
 
+def get_task(state: ProjectState, task_id: str) -> Task:
+    for task in state.tasks:
+        if task.id == task_id:
+            return task
+    raise ValueError(f"Unknown task ID: {task_id}")
+
+
+def update_task_status(state: ProjectState, task_id: str, status: str) -> Task:
+    task = get_task(state, task_id)
+    task.status = validate_task_status(status)
+    task.updated_at = utc_now()
+    return task
+
