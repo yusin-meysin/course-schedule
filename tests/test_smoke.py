@@ -22,6 +22,7 @@ from course_schedule.services import (
     get_task,
     update_task_status,
     filter_tasks,
+    task_summary_counts,
 )
 
 
@@ -124,6 +125,18 @@ class ProjectSmokeTests(unittest.TestCase):
 
         self.assertEqual(filter_tasks(state, priority="high"), [first])
         self.assertEqual(filter_tasks(state, tag="work"), [first])
+
+    def test_task_summary_counts(self) -> None:
+        state = ProjectState()
+        create_task(state, "A", priority="high", owner="me")
+        other = create_task(state, "B", priority="low")
+        update_task_status(state, other.id, "done")
+
+        summary = task_summary_counts(state)
+
+        self.assertEqual(summary["status"]["todo"], 1)
+        self.assertEqual(summary["status"]["done"], 1)
+        self.assertEqual(summary["owner"]["unassigned"], 1)
 
 
 if __name__ == "__main__":

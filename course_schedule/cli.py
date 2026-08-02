@@ -18,6 +18,7 @@ from .services import (
     get_task,
     update_task_status,
     filter_tasks,
+    task_summary_counts,
 )
 
 
@@ -70,6 +71,7 @@ def build_parser() -> argparse.ArgumentParser:
     task_status = subparsers.add_parser("task-status")
     task_status.add_argument("task_id")
     task_status.add_argument("status")
+    subparsers.add_parser("task-summary")
     return parser
 
 
@@ -150,6 +152,10 @@ def main(argv: list[str] | None = None) -> int:
         task = update_task_status(state, args.task_id, args.status)
         save_state(args.data, state)
         print(f"{task.id} {task.status}")
+        return 0
+    if args.command == "task-summary":
+        state = load_state(args.data)
+        print(json.dumps(task_summary_counts(state), ensure_ascii=False, sort_keys=True))
         return 0
     parser.print_help()
     return 0
