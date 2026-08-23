@@ -2,8 +2,8 @@
 
 CourseSchedule is a small local command-line utility that grows in focused stages.
 
-Current stage: 16
-Latest focus: Document daily usage notes
+Current stage: 17
+Latest focus: Add edge case checklist
 
 ## Goals
 

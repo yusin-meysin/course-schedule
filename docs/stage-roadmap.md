@@ -1,11 +1,10 @@
 # CourseSchedule Stage Roadmap
 
-Current stage: 16
+Current stage: 17
 Target stages: 79
 
 ## Upcoming Focus
 
-- Stage 16: Document daily usage notes
 - Stage 17: Add edge case checklist
 - Stage 18: Record storage safety notes
 - Stage 19: Add command examples
@@ -13,3 +12,4 @@ Target stages: 79
 - Stage 21: Add release checklist
 - Stage 22: Document validation rules
 - Stage 23: Capture troubleshooting notes
+- Stage 24: Add sample workflow
