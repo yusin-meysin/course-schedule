@@ -1,11 +1,10 @@
 # CourseSchedule Stage Roadmap
 
-Current stage: 20
+Current stage: 21
 Target stages: 79
 
 ## Upcoming Focus
 
-- Stage 20: Describe data migration notes
 - Stage 21: Add release checklist
 - Stage 22: Document validation rules
 - Stage 23: Capture troubleshooting notes
@@ -13,3 +12,4 @@ Target stages: 79
 - Stage 25: Document backup routine
 - Stage 26: Add import planning notes
 - Stage 27: Describe export planning notes
+- Stage 28: Record CLI naming decisions
