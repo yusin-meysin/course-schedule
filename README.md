@@ -2,8 +2,8 @@
 
 CourseSchedule is a small local command-line utility that grows in focused stages.
 
-Current stage: 24
-Latest focus: Add sample workflow
+Current stage: 25
+Latest focus: Document backup routine
 
 ## Goals
 
