@@ -1,11 +1,10 @@
 # CourseSchedule Stage Roadmap
 
-Current stage: 39
+Current stage: 40
 Target stages: 79
 
 ## Upcoming Focus
 
-- Stage 39: Add data cleanup notes
 - Stage 40: Document search planning
 - Stage 41: Add sorting behavior notes
 - Stage 42: Describe filtering behavior
@@ -13,3 +12,4 @@ Target stages: 79
 - Stage 44: Add error message guide
 - Stage 45: Document empty state behavior
 - Stage 46: Add onboarding checklist
+- Stage 47: Record performance notes
