@@ -1,11 +1,10 @@
 # CourseSchedule Stage Roadmap
 
-Current stage: 43
+Current stage: 44
 Target stages: 79
 
 ## Upcoming Focus
 
-- Stage 43: Capture summary behavior
 - Stage 44: Add error message guide
 - Stage 45: Document empty state behavior
 - Stage 46: Add onboarding checklist
@@ -13,3 +12,4 @@ Target stages: 79
 - Stage 48: Add accessibility notes
 - Stage 49: Describe audit trail ideas
 - Stage 50: Document archive behavior
+- Stage 51: Add restore behavior notes
