@@ -1,11 +1,10 @@
 # CourseSchedule Stage Roadmap
 
-Current stage: 47
+Current stage: 48
 Target stages: 79
 
 ## Upcoming Focus
 
-- Stage 47: Record performance notes
 - Stage 48: Add accessibility notes
 - Stage 49: Describe audit trail ideas
 - Stage 50: Document archive behavior
@@ -13,3 +12,4 @@ Target stages: 79
 - Stage 52: Capture sync boundary notes
 - Stage 53: Add local-first notes
 - Stage 54: Document privacy notes
+- Stage 55: Add sample data notes
